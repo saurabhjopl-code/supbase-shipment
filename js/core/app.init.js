@@ -1,7 +1,7 @@
 import { renderHeader } from '../ui/header.ui.js'
 import { renderTabs } from '../ui/tabs.ui.js'
 import { initTabBehavior } from '../ui/layout.controller.js'
-import { showLoader, hideLoader } from '../ui/loader.ui.js'
+import { initLoader, showLoader, hideLoader } from '../ui/loader.ui.js'
 
 import { fetchSalesCount } from '../data/fetch.sales.js'
 import { fetchFCStockCount } from '../data/fetch.fcstock.js'
@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderHeader()
     renderTabs()
     initTabBehavior()
+    initLoader()
 
     document.getElementById("refreshBtn")
         .addEventListener("click", loadCounts)
@@ -41,7 +42,7 @@ async function loadCounts() {
     } catch (error) {
         console.error("Load error:", error)
         hideLoader()
-        alert("Supabase connection failed. Check RLS or keys.")
+        alert("Supabase connection failed.")
     }
 
 }
