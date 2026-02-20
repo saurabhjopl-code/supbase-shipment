@@ -1,7 +1,7 @@
 import { renderHeader } from '../ui/header.ui.js'
 import { renderTabs } from '../ui/tabs.ui.js'
 import { initTabBehavior } from '../ui/layout.controller.js'
-import { initLoader, showLoader, hideLoader } from '../ui/loader.ui.js'
+import { initLoader, showLoader, hideLoader, animateCounter } from '../ui/loader.ui.js'
 
 import { fetchSalesCount } from '../data/fetch.sales.js'
 import { fetchFCStockCount } from '../data/fetch.fcstock.js'
@@ -32,10 +32,10 @@ async function loadCounts() {
         const uniwareCount = await fetchUniwareCount()
         const remarkCount = await fetchRemarksCount()
 
-        document.getElementById("saleCount").innerText = saleCount
-        document.getElementById("fcCount").innerText = fcCount
-        document.getElementById("uniwareCount").innerText = uniwareCount
-        document.getElementById("remarkCount").innerText = remarkCount
+        animateCounter("saleCount", saleCount)
+        animateCounter("fcCount", fcCount)
+        animateCounter("uniwareCount", uniwareCount)
+        animateCounter("remarkCount", remarkCount)
 
         hideLoader()
 
