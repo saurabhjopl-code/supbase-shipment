@@ -1,4 +1,5 @@
 export function renderTabs() {
+
     const container = document.getElementById("mpTabs")
 
     container.innerHTML = `
