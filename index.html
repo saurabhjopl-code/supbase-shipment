@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DW Shipment Planning Engine</title>
 
-<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="./css/reset.css">
+<link rel="stylesheet" href="./css/variables.css">
+<link rel="stylesheet" href="./css/layout.css">
+<link rel="stylesheet" href="./css/components.css">
 
 </head>
 <body>
@@ -29,7 +32,7 @@
         </div>
     </header>
 
-    <!-- DATA STATUS BAR -->
+    <!-- STATUS BAR -->
     <div class="status-bar">
         <div>Sale <span id="saleCount">0</span></div>
         <div>FC Stock <span id="fcCount">0</span></div>
@@ -48,14 +51,14 @@
     </div>
 
     <!-- CONTENT -->
-    <main id="contentArea">
+    <main>
 
-        <!-- SUMMARY SECTION -->
-        <section id="summarySection" class="section">
+        <!-- SUMMARY -->
+        <section id="summarySection">
 
             <div class="card">
                 <h2>FC Summary</h2>
-                <table id="fcSummaryTable">
+                <table>
                     <thead>
                         <tr>
                             <th>FC</th>
@@ -65,13 +68,13 @@
                             <th>Stock Cover</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="fcSummaryBody"></tbody>
                 </table>
             </div>
 
             <div class="card">
                 <h2>Shipment & Recall Summary</h2>
-                <table id="shipmentSummaryTable">
+                <table>
                     <thead>
                         <tr>
                             <th>FC</th>
@@ -83,17 +86,18 @@
                             <th>Recall Qty</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="shipmentSummaryBody"></tbody>
                 </table>
             </div>
 
         </section>
 
-        <!-- REPORT SECTION -->
-        <section id="reportSection" class="section hidden">
+        <!-- REPORT -->
+        <section id="reportSection" class="hidden">
+
             <div class="card">
                 <h2>Shipment Report</h2>
-                <table id="shipmentReportTable">
+                <table>
                     <thead>
                         <tr>
                             <th>MP</th>
@@ -110,9 +114,10 @@
                             <th>Recall</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="shipmentReportBody"></tbody>
                 </table>
             </div>
+
         </section>
 
     </main>
