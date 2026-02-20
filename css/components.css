@@ -1,23 +1,24 @@
-/* Buttons */
+/* ===== Buttons ===== */
 
 .btn {
-    padding: 9px 16px;
+    padding: 9px 18px;
     border-radius: var(--radius-md);
     border: none;
     cursor: pointer;
     font-weight: 600;
     font-size: 13px;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .btn-blue {
     background: var(--primary);
     color: white;
+    box-shadow: 0 4px 14px var(--primary-glow);
 }
 
 .btn-blue:hover {
-    background: var(--primary-light);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--primary-glow);
 }
 
 .btn-red {
@@ -26,59 +27,66 @@
 }
 
 .btn-red:hover {
+    transform: translateY(-2px);
     box-shadow: var(--shadow-hover);
 }
 
 .btn-grey {
-    background: #e5e7eb;
-    color: #111827;
+    background: rgba(0,0,0,0.05);
 }
 
-/* Tabs */
+/* ===== Tabs (Premium Pill) ===== */
 
 .tab {
-    padding: 8px 18px;
+    padding: 8px 20px;
     border-radius: 999px;
-    border: 1px solid #e5e7eb;
-    background: white;
-    cursor: pointer;
+    border: none;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(6px);
     font-size: 13px;
     font-weight: 500;
-    transition: all 0.2s ease;
+    cursor: pointer;
+    transition: all 0.25s ease;
 }
 
 .tab:hover {
+    transform: translateY(-2px);
     box-shadow: var(--shadow-soft);
 }
 
 .tab.active {
     background: var(--primary);
     color: white;
-    border: none;
+    box-shadow: 0 6px 18px var(--primary-glow);
 }
 
-/* Cards */
+/* ===== Glass Cards ===== */
 
 .card {
-    background: var(--card-bg);
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     border-radius: var(--radius-lg);
-    padding: 24px;
-    margin-bottom: 25px;
+    padding: 26px;
+    margin-bottom: 30px;
     box-shadow: var(--shadow-soft);
-    transition: all 0.2s ease;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.4s ease;
 }
 
 .card:hover {
+    transform: translateY(-3px);
     box-shadow: var(--shadow-hover);
 }
 
 .card h2 {
     font-size: 16px;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
-/* Tables */
+/* ===== Tables ===== */
 
 table {
     width: 100%;
@@ -91,17 +99,30 @@ th {
     padding: 12px;
     font-size: 12px;
     font-weight: 600;
-    background: #f9fafb;
-    border-bottom: 1px solid #e5e7eb;
+    background: rgba(255,255,255,0.6);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 td {
     text-align: center;
     padding: 10px;
     font-size: 13px;
-    border-bottom: 1px solid #f3f4f6;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 tr:hover {
-    background: #f9fafb;
+    background: rgba(255,255,255,0.6);
+}
+
+/* ===== Animations ===== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
