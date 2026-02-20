@@ -1,24 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MP Shipment Engine</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DW Shipment Planning Engine</title>
 
-  <link rel="stylesheet" href="./css/reset.css" />
-  <link rel="stylesheet" href="./css/variables.css" />
-  <link rel="stylesheet" href="./css/layout.css" />
-  <link rel="stylesheet" href="./css/components.css" />
+<link rel="stylesheet" href="./css/style.css">
+
 </head>
 <body>
 
-  <div id="app">
-    <header id="app-header"></header>
-    <nav id="mp-tabs"></nav>
-    <main id="content"></main>
-  </div>
+<div class="app-container">
 
-  <script type="module" src="./js/core/app.init.js"></script>
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="logo-section">
+            <img src="./assets/logo.png" class="logo">
+        </div>
+
+        <div class="title-section">
+            <h1>DW Shipment Planning Engine</h1>
+            <p>Automated allocation for Amazon, Flipkart, Myntra & Seller</p>
+        </div>
+
+        <div class="action-section">
+            <button id="exportShipment" class="btn btn-blue">Export Shipment</button>
+            <button id="exportRecall" class="btn btn-red">Export Recall</button>
+        </div>
+    </header>
+
+    <!-- DATA STATUS BAR -->
+    <div class="status-bar">
+        <div>Sale <span id="saleCount">0</span></div>
+        <div>FC Stock <span id="fcCount">0</span></div>
+        <div>Uniware <span id="uniwareCount">0</span></div>
+        <div>Remarks <span id="remarkCount">0</span></div>
+        <button id="refreshBtn" class="btn btn-grey">Refresh</button>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+        <button class="tab active" data-tab="summary">Summary</button>
+        <button class="tab" data-tab="amazon">Amazon</button>
+        <button class="tab" data-tab="flipkart">Flipkart</button>
+        <button class="tab" data-tab="myntra">Myntra</button>
+        <button class="tab" data-tab="seller">SELLER</button>
+    </div>
+
+    <!-- CONTENT -->
+    <main id="contentArea">
+
+        <!-- SUMMARY SECTION -->
+        <section id="summarySection" class="section">
+
+            <div class="card">
+                <h2>FC Summary</h2>
+                <table id="fcSummaryTable">
+                    <thead>
+                        <tr>
+                            <th>FC</th>
+                            <th>Total Stock</th>
+                            <th>Total Sale</th>
+                            <th>DRR</th>
+                            <th>Stock Cover</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>Shipment & Recall Summary</h2>
+                <table id="shipmentSummaryTable">
+                    <thead>
+                        <tr>
+                            <th>FC</th>
+                            <th>Total Stock</th>
+                            <th>Total Sale</th>
+                            <th>DRR</th>
+                            <th>Actual Shipment Qty</th>
+                            <th>Shipment Qty (Allocated)</th>
+                            <th>Recall Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- REPORT SECTION -->
+        <section id="reportSection" class="section hidden">
+            <div class="card">
+                <h2>Shipment Report</h2>
+                <table id="shipmentReportTable">
+                    <thead>
+                        <tr>
+                            <th>MP</th>
+                            <th>MPSKU</th>
+                            <th>Warehouse</th>
+                            <th>Uniware SKU</th>
+                            <th>Total Sale</th>
+                            <th>DRR</th>
+                            <th>FC Stock</th>
+                            <th>Stock Cover</th>
+                            <th>Actual Shipment</th>
+                            <th>SP-Qty</th>
+                            <th>Final Shipment</th>
+                            <th>Recall</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script type="module" src="./js/app.js"></script>
 
 </body>
 </html>
