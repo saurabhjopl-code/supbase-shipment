@@ -8,6 +8,11 @@ import { fetchFCStockCount } from '../data/fetch.fcstock.js'
 import { fetchUniwareCount } from '../data/fetch.uniware.js'
 import { fetchRemarksCount } from '../data/fetch.remarks.js'
 
+import { exportShipment } from '../export/export.shipment.js'
+import { exportRecall } from '../export/export.recall.js'
+
+let currentTab = "summary"
+
 document.addEventListener("DOMContentLoaded", async () => {
 
     renderHeader()
@@ -18,8 +23,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("refreshBtn")
         .addEventListener("click", loadCounts)
 
-    await loadCounts()
+    document.getElementById("exportShipment")
+        .addEventListener("click", () => {
+            if (currentTab !== "summary") exportShipment(currentTab)
+        })
 
+    document.getElementById("exportRecall")
+        .addEventListener("click", () => {
+            if (currentTab !== "summary") exportRecall(currentTab)
+        })
+
+    document.querySelectorAll(".tab").forEach(tab => {
+        tab.addEventListener("click", () => {
+            currentTab = tab.dataset.tab
+        })
+    })
+
+    await loadCounts()
 })
 
 async function loadCounts() {
@@ -44,5 +64,4 @@ async function loadCounts() {
         hideLoader()
         alert("Supabase connection failed.")
     }
-
 }
