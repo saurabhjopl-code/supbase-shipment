@@ -1,41 +1,51 @@
 body {
-    font-family: Arial, sans-serif;
-    background: var(--bg);
+    font-family: "Inter", Arial, sans-serif;
+    background: var(--bg-main);
+    min-height: 100vh;
 }
 
 .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
+    padding: 18px 40px;
     background: white;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-soft);
 }
 
 .logo {
-    height: 40px;
+    height: 42px;
 }
 
-.title-section {
-    text-align: center;
+.title-section h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.title-section p {
+    font-size: 12px;
+    color: var(--grey);
 }
 
 .status-bar {
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 10px 30px;
-    background: #eef2ff;
+    gap: 24px;
+    padding: 12px 40px;
+    font-size: 14px;
 }
 
 .tabs {
     display: flex;
-    gap: 10px;
-    padding: 20px 30px 10px;
+    gap: 12px;
+    padding: 20px 40px 10px;
 }
 
 main {
-    padding: 0 30px 40px;
+    padding: 10px 40px 50px;
 }
 
 .hidden {
