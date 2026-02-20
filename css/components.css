@@ -1,9 +1,13 @@
+/* Buttons */
+
 .btn {
-    padding: 8px 14px;
-    border-radius: 6px;
+    padding: 9px 16px;
+    border-radius: var(--radius-md);
     border: none;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.2s ease;
 }
 
 .btn-blue {
@@ -11,22 +15,40 @@
     color: white;
 }
 
+.btn-blue:hover {
+    background: var(--primary-light);
+    box-shadow: var(--shadow-hover);
+}
+
 .btn-red {
     background: var(--danger);
     color: white;
 }
 
-.btn-grey {
-    background: var(--grey);
-    color: white;
+.btn-red:hover {
+    box-shadow: var(--shadow-hover);
 }
 
+.btn-grey {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+/* Tabs */
+
 .tab {
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
     background: white;
     cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.tab:hover {
+    box-shadow: var(--shadow-soft);
 }
 
 .tab.active {
@@ -35,13 +57,28 @@
     border: none;
 }
 
+/* Cards */
+
 .card {
     background: var(--card-bg);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.2s ease;
 }
+
+.card:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.card h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+/* Tables */
 
 table {
     width: 100%;
@@ -49,13 +86,22 @@ table {
     margin-top: 10px;
 }
 
-th, td {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
+th {
     text-align: center;
-    font-size: 13px;
+    padding: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-th {
+td {
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+tr:hover {
     background: #f9fafb;
 }
