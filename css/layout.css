@@ -2,7 +2,10 @@ body {
     font-family: "Inter", Arial, sans-serif;
     background: var(--bg-main);
     min-height: 100vh;
+    color: #111827;
 }
+
+/* ===== Glass Header ===== */
 
 .app-header {
     position: sticky;
@@ -11,13 +14,18 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 40px;
-    background: white;
+    padding: 20px 50px;
+
+    background: var(--glass-bg);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--glass-border);
+
     box-shadow: var(--shadow-soft);
 }
 
 .logo {
-    height: 42px;
+    height: 44px;
 }
 
 .title-section h1 {
@@ -30,22 +38,28 @@ body {
     color: var(--grey);
 }
 
+/* ===== Status Bar ===== */
+
 .status-bar {
     display: flex;
     align-items: center;
-    gap: 24px;
-    padding: 12px 40px;
+    gap: 25px;
+    padding: 15px 50px;
     font-size: 14px;
 }
+
+/* ===== Tabs ===== */
 
 .tabs {
     display: flex;
     gap: 12px;
-    padding: 20px 40px 10px;
+    padding: 10px 50px 20px;
 }
 
+/* ===== Main ===== */
+
 main {
-    padding: 10px 40px 50px;
+    padding: 0 50px 60px;
 }
 
 .hidden {
