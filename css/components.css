@@ -35,7 +35,7 @@
     background: rgba(0,0,0,0.05);
 }
 
-/* ===== Tabs (Premium Pill) ===== */
+/* ===== Tabs ===== */
 
 .tab {
     padding: 8px 20px;
@@ -65,7 +65,6 @@
 .card {
     background: var(--glass-bg);
     backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
     border-radius: var(--radius-lg);
     padding: 26px;
     margin-bottom: 30px;
@@ -114,7 +113,27 @@ tr:hover {
     background: rgba(255,255,255,0.6);
 }
 
-/* ===== Animations ===== */
+/* ===== Loader ===== */
+
+#topLoader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, #2563eb, #60a5fa);
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.7);
+    z-index: 9999;
+    transition: width 0.4s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+#topLoader.active {
+    width: 100%;
+    opacity: 1;
+}
+
+/* ===== Animation ===== */
 
 @keyframes fadeIn {
     from {
