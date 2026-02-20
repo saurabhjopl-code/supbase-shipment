@@ -1,0 +1,61 @@
+.btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-blue {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-red {
+    background: var(--danger);
+    color: white;
+}
+
+.btn-grey {
+    background: var(--grey);
+    color: white;
+}
+
+.tab {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+}
+
+.tab.active {
+    background: var(--primary);
+    color: white;
+    border: none;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    font-size: 13px;
+}
+
+th {
+    background: #f9fafb;
+}
