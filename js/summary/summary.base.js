@@ -8,7 +8,7 @@ export async function renderSummary() {
     const summarySection = document.getElementById("summarySection")
 
     const { data, error } = await supabase
-        .from("v_final_shipment_v2")
+        .from("v_shipment_base")
         .select("*")
 
     if (error) {
@@ -21,21 +21,19 @@ export async function renderSummary() {
 
     data.forEach(row => {
 
-        const key = `${row.mp}_${row.allocated_fc}`
+        const key = `${row.mp}_${row.warehouse_id}`
 
         if (!map[key]) {
             map[key] = {
                 mp: row.mp,
-                fc: row.allocated_fc,
+                fc: row.warehouse_id,
                 total_stock: 0,
-                total_sale: 0,
-                total_drr: 0
+                total_sale: 0
             }
         }
 
-        map[key].total_stock += row.fc_stock
-        map[key].total_sale += row.total_sale
-        map[key].total_drr += row.drr
+        map[key].total_stock += Number(row.fc_stock)
+        map[key].total_sale += Number(row.total_sale)
     })
 
     let html = `
@@ -57,9 +55,8 @@ export async function renderSummary() {
 
     Object.values(map).forEach(row => {
 
-        const sc = row.total_drr === 0
-            ? 0
-            : row.total_stock / row.total_drr
+        const drr = row.total_sale / 30
+        const sc = drr === 0 ? 0 : row.total_stock / drr
 
         html += `
             <tr>
@@ -67,7 +64,7 @@ export async function renderSummary() {
                 <td>${row.fc}</td>
                 <td>${row.total_stock.toLocaleString()}</td>
                 <td>${row.total_sale.toLocaleString()}</td>
-                <td>${row.total_drr.toFixed(2)}</td>
+                <td>${drr.toFixed(2)}</td>
                 <td>${sc.toFixed(1)}</td>
             </tr>
         `
