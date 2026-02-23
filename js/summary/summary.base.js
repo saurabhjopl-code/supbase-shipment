@@ -12,8 +12,6 @@ export async function renderSummary() {
         const { data, error } = await supabase
             .from("v_fc_summary")
             .select("*")
-            .order("mp", { ascending: true })
-            .order("warehouse_id", { ascending: true })
 
         if (error) throw error
 
@@ -34,7 +32,35 @@ export async function renderSummary() {
                     <tbody>
         `
 
-        data.forEach(row => {
+        let currentMP = null
+        let subtotalStock = 0
+        let subtotalSale = 0
+
+        data.forEach((row, index) => {
+
+            if (currentMP !== row.mp && currentMP !== null) {
+
+                const subtotalDRR = subtotalSale / 30
+                const subtotalSC = subtotalDRR === 0 ? 0 : subtotalStock / subtotalDRR
+
+                html += `
+                    <tr style="font-weight:600;background:#f3f6fb">
+                        <td colspan="2">${currentMP} SUBTOTAL</td>
+                        <td>${subtotalStock.toLocaleString()}</td>
+                        <td>${subtotalSale.toLocaleString()}</td>
+                        <td>${subtotalDRR.toFixed(2)}</td>
+                        <td>${subtotalSC.toFixed(1)}</td>
+                    </tr>
+                `
+
+                subtotalStock = 0
+                subtotalSale = 0
+            }
+
+            currentMP = row.mp
+
+            subtotalStock += Number(row.total_stock)
+            subtotalSale += Number(row.total_sale)
 
             html += `
                 <tr>
@@ -46,6 +72,23 @@ export async function renderSummary() {
                     <td>${Number(row.stock_cover).toFixed(1)}</td>
                 </tr>
             `
+
+            if (index === data.length - 1) {
+
+                const subtotalDRR = subtotalSale / 30
+                const subtotalSC = subtotalDRR === 0 ? 0 : subtotalStock / subtotalDRR
+
+                html += `
+                    <tr style="font-weight:600;background:#f3f6fb">
+                        <td colspan="2">${currentMP} SUBTOTAL</td>
+                        <td>${subtotalStock.toLocaleString()}</td>
+                        <td>${subtotalSale.toLocaleString()}</td>
+                        <td>${subtotalDRR.toFixed(2)}</td>
+                        <td>${subtotalSC.toFixed(1)}</td>
+                    </tr>
+                `
+            }
+
         })
 
         html += `
