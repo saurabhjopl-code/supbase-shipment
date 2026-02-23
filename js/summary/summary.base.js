@@ -8,7 +8,7 @@ export async function renderSummary() {
     const summarySection = document.getElementById("summarySection")
 
     const { data, error } = await supabase
-        .from("v_sale_agg")
+        .from("v_final_shipment_v2")
         .select("*")
 
     if (error) {
@@ -17,20 +17,25 @@ export async function renderSummary() {
         return
     }
 
-    const fcMap = {}
+    const map = {}
 
     data.forEach(row => {
 
-        if (!fcMap[row.warehouse_id]) {
-            fcMap[row.warehouse_id] = {
-                total_sale: 0,
+        const key = `${row.mp}_${row.allocated_fc}`
+
+        if (!map[key]) {
+            map[key] = {
+                mp: row.mp,
+                fc: row.allocated_fc,
                 total_stock: 0,
-                drr: 0
+                total_sale: 0,
+                total_drr: 0
             }
         }
 
-        fcMap[row.warehouse_id].total_sale += row.total_sale
-        fcMap[row.warehouse_id].drr += row.drr
+        map[key].total_stock += row.fc_stock
+        map[key].total_sale += row.total_sale
+        map[key].total_drr += row.drr
     })
 
     let html = `
@@ -39,20 +44,31 @@ export async function renderSummary() {
             <table>
                 <thead>
                     <tr>
+                        <th>MP</th>
                         <th>FC</th>
+                        <th>Total Stock</th>
                         <th>Total Sale</th>
                         <th>DRR</th>
+                        <th>SC</th>
                     </tr>
                 </thead>
                 <tbody>
     `
 
-    Object.keys(fcMap).forEach(fc => {
+    Object.values(map).forEach(row => {
+
+        const sc = row.total_drr === 0
+            ? 0
+            : row.total_stock / row.total_drr
+
         html += `
             <tr>
-                <td>${fc}</td>
-                <td>${fcMap[fc].total_sale.toLocaleString()}</td>
-                <td>${fcMap[fc].drr.toFixed(2)}</td>
+                <td>${row.mp}</td>
+                <td>${row.fc}</td>
+                <td>${row.total_stock.toLocaleString()}</td>
+                <td>${row.total_sale.toLocaleString()}</td>
+                <td>${row.total_drr.toFixed(2)}</td>
+                <td>${sc.toFixed(1)}</td>
             </tr>
         `
     })
