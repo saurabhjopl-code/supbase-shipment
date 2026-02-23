@@ -1,12 +1,27 @@
-export function renderTabs() {
+import { loadReport } from '../report/report.base.js'
+import { renderSummary } from '../summary/summary.base.js'
 
-    const container = document.getElementById("mpTabs")
+const summarySection = document.getElementById("summarySection")
+const reportSection = document.getElementById("reportSection")
 
-    container.innerHTML = `
-        <button class="tab active" data-tab="summary">Summary</button>
-        <button class="tab" data-tab="amazon">Amazon</button>
-        <button class="tab" data-tab="flipkart">Flipkart</button>
-        <button class="tab" data-tab="myntra">Myntra</button>
-        <button class="tab" data-tab="seller">SELLER</button>
-    `
-}
+document.addEventListener("DOMContentLoaded", () => {
+
+    // Default load summary
+    renderSummary()
+
+    document.querySelectorAll(".mp-tab").forEach(tab => {
+
+        tab.addEventListener("click", () => {
+
+            const mp = tab.dataset.mp
+
+            if (mp === "SUMMARY") {
+                reportSection.classList.add("hidden")
+                summarySection.classList.remove("hidden")
+                renderSummary()
+            } else {
+                loadReport(mp)
+            }
+        })
+    })
+})
