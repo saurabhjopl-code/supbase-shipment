@@ -1,47 +1,61 @@
 import { supabase } from '../core/supabase.client.js'
 import { showLoader, hideLoader } from '../ui/loader.ui.js'
 
-export async function renderReport(mpName) {
+const summarySection = document.getElementById("summarySection")
+const reportSection = document.getElementById("reportSection")
+
+// Map tab name → MP value in DB
+const MP_MAP = {
+    AMAZON: 'AMAZON IN',
+    FLIPKART: 'FLIPKART',
+    MYNTRA: 'MYNTRA',
+    SELLER: 'SELLER'
+}
+
+export async function loadReport(mpKey) {
 
     showLoader()
 
-    const reportSection = document.getElementById("reportSection")
+    summarySection.classList.add("hidden")
+    reportSection.classList.remove("hidden")
 
-    const { data, error } = await supabase
-        .from("v_final_shipment_v2")
-        .select("*")
-        .eq("mp", mpName)
+    try {
 
-    if (error) {
-        console.error(error)
-        hideLoader()
-        return
+        const mpValue = MP_MAP[mpKey]
+
+        const { data, error } = await supabase
+            .from("v_report_master")
+            .select("*")
+            .eq("mp", mpValue)
+            .order("warehouse_id", { ascending: true })
+
+        if (error) throw error
+
+        renderReportTable(data, mpValue)
+
+    } catch (err) {
+        console.error("Report Load Error:", err)
+        reportSection.innerHTML = `<div class="card">Error loading report.</div>`
     }
 
-    if (!data.length) {
-        reportSection.innerHTML = `
-            <div class="card">
-                <h2>${mpName} Report</h2>
-                <p>No data found.</p>
-            </div>
-        `
-        hideLoader()
-        return
-    }
+    hideLoader()
+}
+
+function renderReportTable(data, mpValue) {
 
     let html = `
         <div class="card">
-            <h2>${mpName} Shipment Report</h2>
+            <h2>${mpValue} Report</h2>
+            <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
                         <th>MP</th>
                         <th>MPSKU</th>
                         <th>Warehouse</th>
-                        <th>Uniware SKU</th>
+                        <th>FC Stock</th>
                         <th>Total Sale</th>
                         <th>DRR</th>
-                        <th>FC Stock</th>
                         <th>Stock Cover</th>
                         <th>Actual Shipment</th>
                         <th>SP-Qty</th>
@@ -52,33 +66,42 @@ export async function renderReport(mpName) {
                 <tbody>
     `
 
-    data.forEach(row => {
-
+    if (!data || data.length === 0) {
         html += `
             <tr>
-                <td>${row.mp}</td>
-                <td>${row.mpsku}</td>
-                <td>${row.warehouse_display}</td>
-                <td>${row.uniware_sku}</td>
-                <td>${row.total_sale.toLocaleString()}</td>
-                <td>${Number(row.drr).toFixed(2)}</td>
-                <td>${row.fc_stock.toLocaleString()}</td>
-                <td>${Number(row.stock_cover).toFixed(1)}</td>
-                <td>${Math.round(row.actual_shipment)}</td>
-                <td>${Math.round(row.sp_qty)}</td>
-                <td>${Math.round(row.final_shipment)}</td>
-                <td>${Math.round(row.recall)}</td>
+                <td colspan="11" style="text-align:center;padding:20px;">
+                    No Data Found
+                </td>
             </tr>
         `
-    })
+    } else {
+
+        data.forEach(row => {
+
+            html += `
+                <tr>
+                    <td>${row.mp}</td>
+                    <td>${row.mpsku}</td>
+                    <td>${row.warehouse_id}</td>
+                    <td>${Number(row.fc_stock).toLocaleString()}</td>
+                    <td>${Number(row.total_sale).toLocaleString()}</td>
+                    <td>${Number(row.drr).toFixed(2)}</td>
+                    <td>${Number(row.stock_cover).toFixed(1)}</td>
+                    <td>${Math.round(row.actual_shipment || 0)}</td>
+                    <td>${Math.round(row.sp_qty || 0)}</td>
+                    <td>${Math.round(row.final_shipment || 0)}</td>
+                    <td>${Math.round(row.recall_qty || 0)}</td>
+                </tr>
+            `
+        })
+    }
 
     html += `
                 </tbody>
             </table>
+            </div>
         </div>
     `
 
     reportSection.innerHTML = html
-
-    hideLoader()
 }
